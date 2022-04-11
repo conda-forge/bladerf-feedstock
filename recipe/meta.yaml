@@ -43,8 +43,6 @@ outputs:
         - sysroot_linux-64 2.17  # [linux64]
       host:
         - libusb
-        # restrict to cos6-compatible libusb (and libudev)
-        - libusb-cos6  # [linux and cdt_name=='cos6']
         - pthreads-win32  # [win]
       run:
         - pthreads-win32  # [win]
