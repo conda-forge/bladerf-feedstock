@@ -126,7 +126,6 @@ outputs:
       host:
         - {{ pin_subpackage('libbladerf', exact=True) }}
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
-        - {{ pin_subpackage('libbladerf-python', exact=True) }}
         - pthreads-win32  # [win]
       run:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
