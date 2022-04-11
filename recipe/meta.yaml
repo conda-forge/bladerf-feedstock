@@ -93,6 +93,10 @@ outputs:
       entry_points:
         - bladerf-tool = bladerf._tool:main
     requirements:
+      build:
+        # cross-compilation dependencies
+        - python >=3.6                        # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
       host:
         - cffi
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
