@@ -94,19 +94,14 @@ outputs:
         - bladerf-tool = bladerf._tool:main
     requirements:
       build:
-        # Package is noarch, so it doesn't really matter if we build it with the
-        # build or target platform. Doing it exclusively with the build platform
-        # for cross-compilation avoids issues with deleting the cached host
-        # packages which are needed for the subsequent bladerf output build.
-        - cffi                                # [build_platform != target_platform]
-        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
-        - pip                                 # [build_platform != target_platform]
+        # cross-compilation dependencies
         - python >=3.6                        # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
       host:
-        - cffi                                # [build_platform == target_platform]
+        - cffi
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
-        - pip                                 # [build_platform == target_platform]
-        - python >=3.6                        # [build_platform == target_platform]
+        - pip
+        - python >=3.6
       run:
         - cffi
         - libbladerf{{ lib_major_version }} {{ version }}
