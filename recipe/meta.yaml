@@ -101,8 +101,7 @@ outputs:
         - cross-python_{{ target_platform }}  # [build_platform != target_platform]
       host:
         - cffi
-        # don't use pin_subpackage to avoid target-specialized build
-        - libbladerf{{ lib_major_version }} {{ version }}
+        - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
         - pip
         - python >=3.6
       run:
