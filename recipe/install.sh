@@ -18,5 +18,9 @@ if [[ "${PKG_NAME:0:10}" == libbladerf ]]; then
         rm -f $PREFIX/lib/libbladeRF${SHLIB_EXT}
     fi
 elif [[ "$PKG_NAME" == bladerf ]]; then
-    cmake -P cmake_install.cmake
+    # run subdir install scripts so libbladerf doesn't need to be in host when packaging
+    # cmake -P cmake_install.cmake
+    cmake -P host/misc/cmake_install.cmake
+    cmake -P host/utilities/cmake_install.cmake
+    cmake -P host/common/cmake_install.cmake
 fi
