@@ -124,7 +124,6 @@ outputs:
         - ninja
         - sysroot_linux-64 2.17  # [linux64]
       host:
-        - {{ pin_subpackage('libbladerf', exact=True) }}
       run:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
         - {{ pin_subpackage('libbladerf-python', exact=True) }}
