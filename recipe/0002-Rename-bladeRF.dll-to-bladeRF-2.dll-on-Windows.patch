@@ -36,5 +36,5 @@ index dea3b3cf..a16bce5e 100644
  # Use space-delimiter in the .pc file, rather than CMake's semicolon separator
  string(REPLACE ";" " " LIBBLADERF_PC_CFLAGS "${LIBBLADERF_PC_CFLAGS}")
 -- 
-2.35.0
+2.38.1
 

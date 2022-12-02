@@ -12,10 +12,9 @@ source:
   patches:
     - 0001-Add-required-ad9361-files-directly.patch
     - 0002-Rename-bladeRF.dll-to-bladeRF-2.dll-on-Windows.patch
-    - 0003-Add-special-case-for-loading-windows-DLL-in-python.patch
-    - 0004-Modify-Python-bindings-to-load-major-versioned-libbl.patch
-    - 0005-Add-an-option-for-bundling-external-libraries-on-Win.patch
-    - 0006-Fix-test-linking-with-rt-when-glibc-2.17-is-used.patch
+    - 0003-Modify-Python-bindings-to-load-major-versioned-libbl.patch
+    - 0004-Add-an-option-for-bundling-external-libraries-on-Win.patch
+    - 0005-Fix-test-linking-with-rt-when-glibc-2.17-is-used.patch
 
 build:
   number: {{ build }}
