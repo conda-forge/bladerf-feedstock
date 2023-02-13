@@ -1,4 +1,4 @@
-{% set version = "2022.11" %}
+{% set version = "2023.02" %}
 {% set lib_major_version = "2" %}
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/Nuand/bladeRF/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 8769c4e2b95d6e7617b59268750d7142cb0549397716b8e078e60aa278c9c947
+  sha256: 25acda993a1dc745975ed2fbdbf5185d5b1e4d729d0b9ad70ecbb97381ef2dd1
   patches:
     - 0001-Add-required-ad9361-files-directly.patch
     - 0002-Rename-bladeRF.dll-to-bladeRF-2.dll-on-Windows.patch
