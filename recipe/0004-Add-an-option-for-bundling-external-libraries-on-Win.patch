@@ -9,7 +9,7 @@ Subject: [PATCH] Add an option for bundling external libraries on Windows.
  2 files changed, 8 insertions(+), 5 deletions(-)
 
 diff --git host/CMakeLists.txt host/CMakeLists.txt
-index 45fa7396..d3887814 100644
+index 7b36e7e6..3e25ef5b 100644
 --- host/CMakeLists.txt
 +++ host/CMakeLists.txt
 @@ -226,13 +226,19 @@ add_custom_target(uninstall

@@ -8,7 +8,7 @@ Subject: [PATCH] Modify Python bindings to load major-versioned libbladeRF.
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git host/libraries/libbladeRF_bindings/python/bladerf/_bladerf.py host/libraries/libbladeRF_bindings/python/bladerf/_bladerf.py
-index ddbf09d9..3222f31e 100644
+index 7b426d32..3175e24b 100644
 --- host/libraries/libbladeRF_bindings/python/bladerf/_bladerf.py
 +++ host/libraries/libbladeRF_bindings/python/bladerf/_bladerf.py
 @@ -33,11 +33,11 @@ ffi = cffi.FFI()

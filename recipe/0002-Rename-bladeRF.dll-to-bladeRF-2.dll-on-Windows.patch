@@ -11,7 +11,7 @@ into a libbladerf2 package.
  1 file changed, 7 insertions(+)
 
 diff --git host/libraries/libbladeRF/CMakeLists.txt host/libraries/libbladeRF/CMakeLists.txt
-index dea3b3cf..a16bce5e 100644
+index 4000a155..e68b8a6b 100644
 --- host/libraries/libbladeRF/CMakeLists.txt
 +++ host/libraries/libbladeRF/CMakeLists.txt
 @@ -451,6 +451,10 @@ target_link_libraries(libbladerf_shared ${LIBBLADERF_LIBS})
