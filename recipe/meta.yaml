@@ -15,6 +15,7 @@ source:
     - 0003-Modify-Python-bindings-to-load-major-versioned-libbl.patch
     - 0004-Add-an-option-for-bundling-external-libraries-on-Win.patch
     - 0005-Fix-test-linking-with-rt-when-glibc-2.17-is-used.patch
+    - 0006-bladeRF-cli-Include-cmath.h-for-M_PI-in-generate.c.patch
 
 build:
   number: {{ build }}
