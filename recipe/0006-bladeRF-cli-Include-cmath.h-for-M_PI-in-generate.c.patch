@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ryan Volz <ryan.volz@gmail.com>
+Date: Wed, 15 Feb 2023 16:49:59 -0500
+Subject: [PATCH] bladeRF-cli: Include <cmath.h> for M_PI in generate.c
+
+---
+ host/utilities/bladeRF-cli/src/cmd/generate.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git host/utilities/bladeRF-cli/src/cmd/generate.c host/utilities/bladeRF-cli/src/cmd/generate.c
+index 204be8be..44c303a5 100644
+--- host/utilities/bladeRF-cli/src/cmd/generate.c
++++ host/utilities/bladeRF-cli/src/cmd/generate.c
+@@ -19,6 +19,8 @@
+  */
+ #include <errno.h>
+ #include <limits.h>
++#define _USE_MATH_DEFINES /* Required for MSVC */
++#include <math.h>
+ #include <pthread.h>
+ #include <stdbool.h>
+ #include <stdint.h>
+-- 
+2.38.1
+
