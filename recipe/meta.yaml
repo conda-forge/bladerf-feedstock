@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/Nuand/bladeRF/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 25acda993a1dc745975ed2fbdbf5185d5b1e4d729d0b9ad70ecbb97381ef2dd1
+  sha256: 3bbac54ad7d6e35be31eb12393be5e7102a070fb1ddc176992d64a6a623670c7
   patches:
     - 0001-Add-required-ad9361-files-directly.patch
     - 0002-Rename-bladeRF.dll-to-bladeRF-2.dll-on-Windows.patch
