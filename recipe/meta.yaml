@@ -126,6 +126,7 @@ outputs:
         - cmake
         - ninja
       host:
+        - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
       run:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
         - {{ pin_subpackage('libbladerf-python', exact=True) }}
