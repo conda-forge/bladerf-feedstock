@@ -1,6 +1,6 @@
-{% set version = "2024.05" %}
+{% set version = "2025.10" %}
 {% set lib_major_version = "2" %}
-{% set build = 2 %}
+{% set build = 0 %}
 
 package:
   name: bladerf-split
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/Nuand/bladeRF/archive/refs/tags/{{ version }}.tar.gz
-  sha256: ac7d7991bc1e5faa2509da3c3046c60e9076ac293e479835aea5f19fa71f1fd2
+  sha256: f7a63f7ad53cf3478dc60cc476b377020a7c256ef37640b1a4fa715cd9784b23
   patches:
     - 0001-Add-required-ad9361-files-directly.patch
     - 0002-Rename-bladeRF.dll-to-bladeRF-2.dll-on-Windows.patch
