@@ -33,8 +33,7 @@ requirements:
 
 outputs:
   - name: libbladerf{{ lib_major_version }}
-    script: install.sh  # [unix]
-    script: install.bat  # [not unix]
+    script: {{ "install.sh" if unix else "install.bat" }}
     requirements:
       build:
         - {{ compiler('c') }}
@@ -51,8 +50,7 @@ outputs:
         - test -f $PREFIX/lib/libbladeRF.{{ lib_major_version }}${SHLIB_EXT}  # [osx]
         - if not exist %PREFIX%\\Library\\bin\\bladeRF-{{ lib_major_version }}.dll exit 1  # [win]
   - name: libbladerf
-    script: install.sh  # [unix]
-    script: install.bat  # [not unix]
+    script: {{ "install.sh" if unix else "install.bat" }}
     build:
       run_exports:
         - {{ pin_subpackage('libbladerf' + lib_major_version, max_pin=False) }}
@@ -113,8 +111,7 @@ outputs:
       commands:
         - bladerf-tool version
   - name: bladerf
-    script: install.sh  # [unix]
-    script: install.bat  # [not unix]
+    script: {{ "install.sh" if unix else "install.bat" }}
     build:
       # instructions for manually linking udev rules
       post-link: post-link  # [linux]
