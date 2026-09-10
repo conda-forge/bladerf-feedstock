@@ -34,7 +34,6 @@ Then, make sure your user account belongs to the plugdev group in order to be ab
 
 You may have to restart for this change to take effect.
 
-
 Current build status
 ====================
 
