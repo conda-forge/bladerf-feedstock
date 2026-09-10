@@ -33,6 +33,7 @@ requirements:
     - ninja
     - pkg-config
   host:
+    - libcurl
     - libusb
 
 outputs:
@@ -126,6 +127,7 @@ outputs:
         - ninja
       host:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
+        - libcurl
       run:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
         - {{ pin_subpackage('libbladerf-python', exact=True) }}
@@ -134,7 +136,9 @@ outputs:
         # verify that executables get installed
         - bladeRF-cli --version
         - bladeRF-cli --lib-version
-        - bladeRF-fsk --help
+        - bladeRF-fsk --help  # [unix]
+        - bladeRF-power --help  # [unix]
+        - bladeRF-update -h
 
         # verify that udev rule gets installed
         - test -f $PREFIX/lib/udev/rules.d/88-nuand-bladerf1.rules  # [linux]
