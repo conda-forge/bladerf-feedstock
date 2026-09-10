@@ -33,8 +33,10 @@ requirements:
     - ninja
     - pkg-config
   host:
-    - libcurl
+    - libcurl  # [unix]
+    - libedit  # [unix]
     - libusb
+    - ncurses  # [unix]
 
 outputs:
   - name: libbladerf{{ lib_major_version }}
@@ -129,7 +131,9 @@ outputs:
         # include plain "libbladerf" for package contents deduplication purposes
         - {{ pin_subpackage('libbladerf', exact=True) }}
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
-        - libcurl
+        - libcurl  # [unix]
+        - libedit  # [unix]
+        - ncurses  # [unix]
       run:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
         - {{ pin_subpackage('libbladerf-python', exact=True) }}
