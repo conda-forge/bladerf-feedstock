@@ -146,6 +146,7 @@ outputs:
         - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
         - pip
         - python ${{ python_min }}.*
+        - setuptools
       run:
         - cffi
         - libbladerf${{ lib_major_version }} ${{ version }}.*
