@@ -1,0 +1,258 @@
+schema_version: 1
+
+context:
+  version: "2025.10"
+  lib_major_version: "2"
+  build: 0
+  fsk_git_rev: fb903684036217b9db9dcd6be8007548e12a377e
+
+recipe:
+  name: bladerf-split
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/Nuand/bladeRF/archive/refs/tags/${{ version }}.tar.gz
+    sha256: f7a63f7ad53cf3478dc60cc476b377020a7c256ef37640b1a4fa715cd9784b23
+    patches:
+      - 0001-Add-required-ad9361-files-directly.patch
+      - 0002-Rename-bladeRF.dll-to-bladeRF-2.dll-on-Windows.patch
+      - 0003-Modify-Python-bindings-to-load-major-versioned-libbl.patch
+      - 0004-Add-an-option-for-bundling-external-libraries-on-Win.patch
+      - 0005-Fix-test-linking-with-rt-when-glibc-2.17-is-used.patch
+  - git: https://github.com/Nuand/bladeRF-fsk.git
+    rev: ${{ fsk_git_rev }}
+    target_directory: host/utilities/bladeRF-fsk
+
+build:
+  number: ${{ build }}
+
+outputs:
+  - staging:
+      name: bladerf-build
+    requirements:
+      build:
+        - ${{ compiler("c") }}
+        - ${{ stdlib("c") }}
+        - ${{ compiler("cxx") }}
+        - cmake
+        - ninja
+        - pkg-config
+      host:
+        - if: unix
+          then: libcurl
+        - if: unix
+          then: libedit
+        - libusb
+        - if: unix
+          then: ncurses
+
+  - package:
+      name: libbladerf${{ lib_major_version }}
+    inherit:
+      from: bladerf-build
+      run_exports: false
+    build:
+      files:
+        include:
+          - if: linux
+            then: lib/libbladeRF.so.${{ lib_major_version }}
+          - if: osx
+            then: lib/libbladeRF.${{ lib_major_version }}.dylib
+          - if: win
+            then: Library/bin/bladeRF-${{ lib_major_version }}.dll
+    requirements:
+      #build:
+        #- ${{ compiler("c") }}
+        #- ${{ stdlib("c") }}
+        #- cmake
+        #- ninja
+      host:
+        - libusb
+    tests:
+      - package_contents:
+          strict: true
+          files:
+            - if: linux
+              then: lib/libbladeRF.so.${{ lib_major_version }}
+            - if: osx
+              then: lib/libbladeRF.${{ lib_major_version }}.dylib
+            - if: win
+              then: Library/bin/bladeRF-${{ lib_major_version }}.dll
+
+  - package:
+      name: libbladerf
+    inherit:
+      from: bladerf-build
+      run_exports: false
+    build:
+      files:
+        include:
+          - ${{ "Library/" if win }}include/**
+          - ${{ "Library/" if win }}lib/**
+          - ${{ "Library/" if win }}share/**
+        exclude:
+          - if: linux
+            then: lib/libbladeRF.so.${{ lib_major_version }}
+          - if: osx
+            then: lib/libbladeRF.${{ lib_major_version }}.dylib
+          - if: linux
+            then: lib/udev/**
+    requirements:
+      #build:
+        #- ${{ compiler("c") }}
+        #- ${{ stdlib("c") }}
+        #- cmake
+        #- ninja
+      host:
+        - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
+      run:
+        - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
+      run_exports:
+        - ${{ pin_subpackage("libbladerf" + lib_major_version, upper_bound=False) }}
+    tests:
+      - package_contents:
+          strict: true
+          include:
+            - bladeRF1.h
+            - bladeRF2.h
+            - libbladeRF.h
+          lib:
+            - if: unix
+              then: bladeRF
+          files:
+            - if: win
+              then: Library/lib/bladeRF.lib
+            - ${{ "Library/" if win }}lib/pkgconfig/libbladeRF.pc
+            - ${{ "Library/" if win }}share/cmake/bladeRF/bladeRFConfig*.cmake
+
+  - package:
+      name: libbladerf-python
+    build:
+      string: py_${{ build }}
+      noarch: python
+      script: python -m pip install -vv host/libraries/libbladeRF_bindings/python
+      python:
+        entry_points:
+          - bladerf-tool = bladerf._tool:main
+    requirements:
+      build:
+        # cross-compilation dependencies
+        - if: build_platform != target_platform
+          then: python ${{ python_min }}
+        - if: build_platform != target_platform
+          then: cross-python_${{ target_platform }}
+      host:
+        - cffi
+        - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
+        - pip
+        - python ${{ python_min }}.*
+      run:
+        - cffi
+        - libbladerf${{ lib_major_version }} ${{ version }}.*
+        - python >=${{ python_min }}
+    tests:
+      - python:
+          imports:
+            - bladerf
+          pip_check: false
+          python_version: ${{ python_min }}.*
+      - requirements:
+          run:
+            - python ${{ python_min }}.*
+        script:
+          - bladerf-tool version
+
+  - package:
+      name: bladerf
+    inherit:
+      from: bladerf-build
+      run_exports: false
+    build:
+      files:
+        include:
+          - ${{ "Library/" if win }}bin/**
+          - if: linux
+            then: lib/udev/**
+    requirements:
+      #build:
+        #- ${{ compiler("c") }}
+        #- ${{ stdlib("c") }}
+        #- cmake
+        #- ninja
+      host:
+        # include plain "libbladerf" for package contents deduplication purposes
+        - ${{ pin_subpackage("libbladerf", exact=True) }}
+        - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
+        - if: unix
+          then: libcurl
+        - if: unix
+          then: libedit
+        - if: unix
+          then: ncurses
+      run:
+        - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
+        - ${{ pin_subpackage("libbladerf-python", exact=True) }}
+    tests:
+      - package_contents:
+          strict: true
+          bin:
+            - bladeRF-cli
+            - if: unix
+              then: bladeRF-fsk
+            - if: unix
+              then: bladeRF-power
+            - bladeRF-update
+          files:
+            - if: linux
+              then: bin/.bladerf-post-link.sh
+            - if: linux
+              then: lib/udev/rules.d/88-nuand-bladerf1.rules
+            - if: linux
+              then: lib/udev/rules.d/88-nuand-bladerf2.rules
+            - if: linux
+              then: lib/udev/rules.d/88-nuand-bootloader.rules
+      - script:
+          - bladeRF-cli --version
+          - bladeRF-cli --lib-version
+          - if: unix
+            then: bladeRF-fsk --help
+          - if: unix
+            then: bladeRF-power --help
+          - bladeRF-update -h
+
+about:
+  license: LGPL-2.1-or-later AND GPL-2.0-or-later
+  license_file:
+    - COPYING
+    - legal/licenses/
+  summary: Host software for bladeRF source software radio devices.
+  description: >
+    This software supports the Nuand bladeRF and bladeRF Micro USB 3.0 Software Defined Radio (SDR) devices:
+
+      - `libbladerf${{ lib_major_version }}` contains the library for bladeRF devices
+      - `libbladerf` contains the development files for compiling against the bladeRF library
+      - `libbladerf-python` contains the Python bindings for the bladeRF library
+      - `bladerf` package contains command line tools for using the devices
+
+    For Linux users of `bladerf`, you will likely want to link the provided udev rule into your system installation in order for the hardware to have the correct permissions:
+
+        sudo ln -s $CONDA_PREFIX/lib/udev/rules.d/88-nuand-bladerf1.rules /etc/udev/rules.d/
+        sudo ln -s $CONDA_PREFIX/lib/udev/rules.d/88-nuand-bladerf2.rules /etc/udev/rules.d/
+        sudo ln -s $CONDA_PREFIX/lib/udev/rules.d/88-nuand-bootloader.rules /etc/udev/rules.d/
+        sudo udevadm control --reload
+        sudo udevadm trigger
+
+    Then, make sure your user account belongs to the plugdev group in order to be able to access your device:
+
+        sudo usermod -a -G plugdev <user>
+
+    You may have to restart for this change to take effect.
+  homepage: https://www.nuand.com/
+  repository: https://github.com/Nuand/bladeRF
+  documentation: https://github.com/Nuand/bladeRF/wiki
+
+extra:
+  feedstock-name: bladerf
+  recipe-maintainers:
+    - ryanvolz
+
