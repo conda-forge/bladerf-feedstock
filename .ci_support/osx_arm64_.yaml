@@ -18,8 +18,12 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '21'
+libcurl:
+- '8'
 macos_machine:
 - arm64-apple-darwin20.0.0
+ncurses:
+- '6'
 python_min:
 - '3.11'
 target_platform:
