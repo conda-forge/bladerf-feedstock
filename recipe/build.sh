@@ -30,7 +30,7 @@ cmake --build . --config Release -- -j${CPU_COUNT}
 cmake --build . --config Release --target install
 
 # add post-link script with instructions for manually linking udev rules
-if [[ $target_platform == linux* ]] ;
+if [[ $target_platform == linux* ]] ; then
     mkdir -p $PREFIX/bin
     cp $RECIPE_DIR/post-link.sh $PREFIX/bin/.bladerf-post-link.sh
     chmod +x $PREFIX/bin/.bladerf-post-link.sh
