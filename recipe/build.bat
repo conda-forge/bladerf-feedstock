@@ -36,3 +36,6 @@ if errorlevel 1 exit 1
 :: install
 cmake --build . --config Release --target install
 if errorlevel 1 exit 1
+:: move dll to proper location
+cmake -E rename %LIBRARY_PREFIX%\lib\bladeRF-2.dll %LIBRARY_PREFIX%\bin\bladeRF-2.dll
+if errorlevel 1 exit 1
