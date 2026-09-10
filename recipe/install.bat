@@ -24,7 +24,9 @@ if [%PKG_NAME:~0,10%] == [libbladerf] (
         if errorlevel 1 exit 1
     )
 ) else if [%PKG_NAME%] == [bladerf] (
-    cmake -P cmake_install.cmake
+    cmake -P host/misc/cmake_install.cmake
+    cmake -P host/utilities/cmake_install.cmake
+    cmake -P host/common/cmake_install.cmake
     if errorlevel 1 exit 1
     :: remove dll in improper location
     cmake -E rm -f %LIBRARY_PREFIX%\lib\bladeRF-2.dll
