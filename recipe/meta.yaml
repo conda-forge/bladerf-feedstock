@@ -126,6 +126,8 @@ outputs:
         - cmake
         - ninja
       host:
+        # include plain "libbladerf" for package contents deduplication purposes
+        - {{ pin_subpackage('libbladerf', exact=True) }}
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
         - libcurl
       run:
