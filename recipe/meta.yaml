@@ -29,7 +29,6 @@ requirements:
     - pkg-config
   host:
     - libusb
-    - winpthreads-devel  # [win]
 
 outputs:
   - name: libbladerf{{ lib_major_version }}
@@ -42,7 +41,6 @@ outputs:
         - ninja
       host:
         - libusb
-        - winpthreads-devel  # [win]
     test:
       commands:
         # verify that libraries get installed
@@ -123,7 +121,6 @@ outputs:
         - ninja
       host:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
-        - winpthreads-devel  # [win]
       run:
         - {{ pin_subpackage('libbladerf' + lib_major_version, exact=True) }}
         - {{ pin_subpackage('libbladerf-python', exact=True) }}
