@@ -4,7 +4,7 @@
 
 package:
   name: bladerf-split
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://github.com/Nuand/bladeRF/archive/refs/tags/{{ version }}.tar.gz
