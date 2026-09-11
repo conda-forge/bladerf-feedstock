@@ -42,3 +42,5 @@ if errorlevel 1 exit 1
 :: move cmake modules to proper location
 cmake -E copy_directory %LIBRARY_PREFIX%\cmake %LIBRARY_PREFIX%\share\cmake\bladeRF
 if errorlevel 1 exit 1
+cmake -E rm %LIBRARY_PREFIX%\cmake
+if errorlevel 1 exit 1
