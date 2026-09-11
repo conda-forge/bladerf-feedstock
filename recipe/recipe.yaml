@@ -61,11 +61,9 @@ outputs:
           - if: win
             then: Library/bin/bladeRF-${{ lib_major_version }}.dll
     requirements:
-      #build:
-        #- ${{ compiler("c") }}
-        #- ${{ stdlib("c") }}
-        #- cmake
-        #- ninja
+      build:
+        - ${{ compiler("c") }}
+        - ${{ stdlib("c") }}
       host:
         - libusb
     tests:
@@ -98,11 +96,9 @@ outputs:
           - if: linux
             then: lib/udev/**
     requirements:
-      #build:
-        #- ${{ compiler("c") }}
-        #- ${{ stdlib("c") }}
-        #- cmake
-        #- ninja
+      build:
+        - ${{ compiler("c") }}
+        - ${{ stdlib("c") }}
       host:
         - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
       run:
@@ -177,11 +173,9 @@ outputs:
           - if: linux
             then: lib/udev/**
     requirements:
-      #build:
-        #- ${{ compiler("c") }}
-        #- ${{ stdlib("c") }}
-        #- cmake
-        #- ninja
+      build:
+        - ${{ compiler("c") }}
+        - ${{ stdlib("c") }}
       host:
         # include plain "libbladerf" for package contents deduplication purposes
         - ${{ pin_subpackage("libbladerf", exact=True) }}
