@@ -108,7 +108,7 @@ outputs:
       run:
         - ${{ pin_subpackage("libbladerf" + lib_major_version, exact=True) }}
       run_exports:
-        - ${{ pin_subpackage("libbladerf" + lib_major_version, upper_bound=False) }}
+        - ${{ pin_subpackage("libbladerf" + lib_major_version, upper_bound=None) }}
     tests:
       - package_contents:
           strict: true
