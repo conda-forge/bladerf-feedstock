@@ -11,10 +11,10 @@ into a libbladerf2 package.
  1 file changed, 7 insertions(+)
 
 diff --git host/libraries/libbladeRF/CMakeLists.txt host/libraries/libbladeRF/CMakeLists.txt
-index 4000a155..e68b8a6b 100644
+index 009ab65f..c537045c 100644
 --- host/libraries/libbladeRF/CMakeLists.txt
 +++ host/libraries/libbladeRF/CMakeLists.txt
-@@ -451,6 +451,10 @@ target_link_libraries(libbladerf_shared ${LIBBLADERF_LIBS})
+@@ -444,6 +444,10 @@ target_link_libraries(libbladerf_shared ${LIBBLADERF_LIBS})
  # Adjust our output name
  set_target_properties(libbladerf_shared PROPERTIES OUTPUT_NAME bladeRF)
  
@@ -25,7 +25,7 @@ index 4000a155..e68b8a6b 100644
  # Set shared library version
  set_target_properties(libbladerf_shared PROPERTIES SOVERSION ${VERSION_INFO_MAJOR})
  
-@@ -477,6 +481,9 @@ set(LIBBLADERF_PC_LIBDIR \${exec_prefix}/${CMAKE_INSTALL_LIBDIR})
+@@ -470,6 +474,9 @@ set(LIBBLADERF_PC_LIBDIR \${exec_prefix}/${CMAKE_INSTALL_LIBDIR})
  set(LIBBLADERF_PC_INCLUDEDIR \${prefix}/include)
  set(LIBBLADERF_PC_VERSION ${VERSION})
  set(LIBBLADERF_PC_LIBS "-lbladeRF")
@@ -36,5 +36,5 @@ index 4000a155..e68b8a6b 100644
  # Use space-delimiter in the .pc file, rather than CMake's semicolon separator
  string(REPLACE ";" " " LIBBLADERF_PC_CFLAGS "${LIBBLADERF_PC_CFLAGS}")
 -- 
-2.38.1
+2.51.0
 
