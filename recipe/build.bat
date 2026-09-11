@@ -40,7 +40,5 @@ if errorlevel 1 exit 1
 cmake -E rename %LIBRARY_PREFIX%\lib\bladeRF-2.dll %LIBRARY_PREFIX%\bin\bladeRF-2.dll
 if errorlevel 1 exit 1
 :: move cmake modules to proper location
-cmake -E rename %LIBRARY_PREFIX%\cmake\bladeRFConfig.cmake %LIBRARY_PREFIX%\share\cmake\bladeRFConfig.cmake
-if errorlevel 1 exit 1
-cmake -E rename %LIBRARY_PREFIX%\cmake\bladeRFConfigVersion.cmake %LIBRARY_PREFIX%\share\cmake\bladeRFConfigVersion.cmake
+cmake -E copy_directory %LIBRARY_PREFIX%\cmake %LIBRARY_PREFIX%\share\cmake\bladeRF
 if errorlevel 1 exit 1
